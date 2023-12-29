@@ -12,7 +12,7 @@ const Actions = async () => {
 		<div className="flex items-center justify-end gap-x-2 ml-4 lg:ml-0">
 			{!user && (
 				<SignInButton>
-					<Button className="" variant="primaryBlue">
+					<Button className="" variant="primary">
 						Login
 					</Button>
 				</SignInButton>
