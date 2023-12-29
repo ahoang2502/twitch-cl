@@ -10,6 +10,7 @@ const BrowseLayout = ({ children }: { children: React.ReactNode }) => {
 			<Navbar />
 
 			<div className="flex h-full pt-20">
+				{/* Suspense shown when getRecommended runs */}
 				<Suspense fallback={<SidebarSkeleton />}>
 					<Sidebar />
 				</Suspense>
