@@ -28,14 +28,14 @@ export async function POST(req: Request) {
 		});
 	}
 
-    if (event.event === "ingress_started") {
-			await db.stream.update({
-				where: { ingressId: event.ingressInfo?.ingressId },
-				data: {
-					isLive: true,
-				},
-			});
-		}
+	if (event.event === "ingress_started") {
+		await db.stream.update({
+			where: { ingressId: event.ingressInfo?.ingressId },
+			data: {
+				isLive: true,
+			},
+		});
+	}
 
-
+	return new Response("", { status: 200 });
 }
