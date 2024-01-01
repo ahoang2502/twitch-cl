@@ -1,7 +1,9 @@
 "use client";
 
-import React, { ElementRef, useRef } from "react";
+import React, { ElementRef, useRef, useState, useTransition } from "react";
 import { AlertTriangle } from "lucide-react";
+import { IngressInput } from "livekit-server-sdk";
+import { toast } from "sonner";
 
 import {
 	Select,
@@ -20,9 +22,32 @@ import {
 } from "@/components/ui/dialog";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { createIngress } from "@/actions/ingress";
+
+const RTMP = String(IngressInput.RTMP_INPUT);
+const WHIP = String(IngressInput.WHIP_INPUT);
+
+type IngressType = typeof RTMP | typeof WHIP;
 
 export const ConnectModal = () => {
 	const closeRef = useRef<ElementRef<"button">>(null);
+
+	const [ingressType, setIngressType] = useState<IngressType>(RTMP);
+	const [isPending, startTransition] = useTransition();
+
+	const onSubmit = () => {
+		startTransition(() => {
+			createIngress(parseInt(ingressType))
+				.then(() => {
+					toast.success("Ingress created");
+					closeRef?.current?.click();
+				})
+				.catch(() =>
+					toast.error("Something went wrong! Please try again later.")
+				);
+		});
+	};
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -34,14 +59,18 @@ export const ConnectModal = () => {
 					<DialogTitle>Generate connection</DialogTitle>
 				</DialogHeader>
 
-				<Select>
+				<Select
+					disabled={isPending}
+					value={ingressType}
+					onValueChange={(value) => setIngressType(value)}
+				>
 					<SelectTrigger className="w-full">
 						<SelectValue placeholder="Ingress Type" />
 					</SelectTrigger>
 
 					<SelectContent>
-						<SelectItem value="RTMP">RTMP</SelectItem>
-						<SelectItem value="WHIP">WHIP</SelectItem>
+						<SelectItem value={RTMP}>RTMP</SelectItem>
+						<SelectItem value={WHIP}>WHIP</SelectItem>
 					</SelectContent>
 				</Select>
 
@@ -56,11 +85,11 @@ export const ConnectModal = () => {
 				</Alert>
 
 				<div className="flex justify-end space-x-3">
-					<DialogClose ref={closeRef}>
+					<DialogClose ref={closeRef} asChild>
 						<Button variant="outline">Cancel</Button>
 					</DialogClose>
 
-					<Button variant="primary" onClick={() => {}}>
+					<Button variant="primary" onClick={onSubmit} disabled={isPending}>
 						Generate
 					</Button>
 				</div>
