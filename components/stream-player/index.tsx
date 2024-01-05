@@ -11,9 +11,10 @@ import { Video, VideoSkeleton } from "./Video";
 import { Header, HeaderSkeleton } from "./Header";
 import { Chat, ChatSkeleton } from "./Chat";
 import { InfoCard } from "./InfoCard";
+import { AboutCard } from "./AboutCard";
 
 interface StreamPlayerProps {
-	user: User & { stream: Stream | null };
+	user: User & { stream: Stream | null; _count: { followedBy: number } };
 	stream: Stream;
 	isFollowing: boolean;
 }
@@ -44,19 +45,32 @@ export const StreamPlayer = ({
 					collapsed && "lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2"
 				)}
 			>
-				<Header
-					hostName={user.username}
-					hostIdentity={user.id}
-					viewerIdentity={identity}
-					imageUrl={user.imageUrl}
-					isFollowing={isFollowing}
-					name={stream.name}
-				/>
-
-				<InfoCard hostIdentity={user.id} viewerIdentity={identity}  name={stream.name} thumbnailUrl={stream.thumbnailUrl} />
-
 				<div className="space-y-4 col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10">
 					<Video hostName={user.username} hostIdentity={user.id} />
+					
+					<Header
+						hostName={user.username}
+						hostIdentity={user.id}
+						viewerIdentity={identity}
+						imageUrl={user.imageUrl}
+						isFollowing={isFollowing}
+						name={stream.name}
+					/>
+
+					<InfoCard
+						hostIdentity={user.id}
+						viewerIdentity={identity}
+						name={stream.name}
+						thumbnailUrl={stream.thumbnailUrl}
+					/>
+
+					<AboutCard
+						hostName={user.username}
+						hostIdentity={user.id}
+						viewerIdentity={identity}
+						bio={user.bio}
+						followedByCount={user._count.followedBy}
+					/>
 				</div>
 
 				<div className={cn("col-span-1", collapsed && "hidden")}>
