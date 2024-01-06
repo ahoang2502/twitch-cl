@@ -1,7 +1,7 @@
 import { db } from "./db";
 import { getSelf } from "./auth-service";
 
-export const getStream = async () => {
+export const getStreams = async () => {
 	let userId;
 
 	try {

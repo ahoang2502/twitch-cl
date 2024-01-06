@@ -1,11 +1,11 @@
 import React from "react";
 
-import { getStream } from "@/lib/feed-service";
+import { getStreams } from "@/lib/feed-service";
 import { ResultCard, ResultCardSkeleton } from "./ResultCard";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export const Results = async () => {
-	const data = await getStream();
+	const data = await getStreams();
 
 	return (
 		<div className="">
