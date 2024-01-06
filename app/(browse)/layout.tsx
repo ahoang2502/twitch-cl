@@ -7,12 +7,12 @@ import Container from "./_components/Container";
 const BrowseLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<>
-			<Navbar />
+			{/* <Navbar /> */}
 
 			<div className="flex h-full pt-20">
-				<Suspense fallback={<SidebarSkeleton />}>
+				{/* <Suspense fallback={<SidebarSkeleton />}>
 					<Sidebar />
-				</Suspense>
+				</Suspense> */}
 
 				<Container>{children}</Container>
 			</div>
