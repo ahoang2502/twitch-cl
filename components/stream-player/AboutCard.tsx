@@ -41,7 +41,7 @@ export const AboutCard = ({
 				</div>
 
 				<p className="text-sm">
-					{bio || "This user prefers to keep an air of mystery about them."}
+					{bio || "This user prefers to keep an air of mystery."}
 				</p>
 			</div>
 		</div>

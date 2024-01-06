@@ -13,6 +13,10 @@ const UserErrorPage = () => {
 			<Button variant="secondary" asChild>
 				<Link href="/">Go back home</Link>
 			</Button>
+
+			<Button variant="secondary" onClick={() => location.reload()}>
+				Refresh
+			</Button>
 		</div>
 	);
 };
