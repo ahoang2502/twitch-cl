@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@clerk/nextjs";
+import { useAuth } from "@/lib/auth";
 import { Heart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";

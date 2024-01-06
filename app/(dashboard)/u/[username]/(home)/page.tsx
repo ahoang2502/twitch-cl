@@ -1,4 +1,4 @@
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@/lib/auth";
 import React from "react";
 
 import { getUserByUsername } from "@/lib/user-service";

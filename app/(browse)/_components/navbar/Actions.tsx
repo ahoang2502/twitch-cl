@@ -1,9 +1,11 @@
-import { SignInButton, UserButton, currentUser } from "@clerk/nextjs";
 import React from "react";
 import Link from "next/link";
 import { Clapperboard } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { currentUser } from "@/lib/auth";
+import { SignInButton } from "@/components/auth/SignInButton";
+import { UserButton } from "@/components/auth/UserButton";
 
 const Actions = async () => {
 	const user = await currentUser();
