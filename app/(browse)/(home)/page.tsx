@@ -5,9 +5,9 @@ import { Results, ResultsSkeleton } from "./_components/Results";
 export default function HomePage() {
 	return (
 		<div className="h-full p-8 max-w-screen-2xl mx-auto">
-			{/* <Suspense fallback={<ResultsSkeleton />}>
+			<Suspense fallback={<ResultsSkeleton />}>
 				<Results />
-			</Suspense> */}
+			</Suspense>
 		</div>
 	);
 }
