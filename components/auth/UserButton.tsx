@@ -1,17 +1,44 @@
-"use client";
-
-import { signOut } from "next-auth/react";
-
+import { LogOut } from "lucide-react";
 import { Button } from "../ui/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuTrigger,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+} from "../ui/dropdown-menu";
+import { UserAvatar } from "../UserAvatar";
+import { getSelf } from "@/lib/auth-service";
+import { signOut } from "@/next-auth";
 
-export const UserButton = ({ props }: any) => {
-	const onClick = () => {
-		signOut();
-	};
+export const UserButton = async ({ props }: any) => {
+	const user = await getSelf();
+
+	if (!user) return null;
 
 	return (
-		<Button onClick={onClick} size="sm">
-			Logout
-		</Button>
+		<DropdownMenu>
+			<DropdownMenuTrigger>
+				<UserAvatar username={user.username!} imageUrl={user.image!} />
+			</DropdownMenuTrigger>
+
+			<DropdownMenuContent align="end" className="w-60">
+				<DropdownMenuLabel>{user.username}</DropdownMenuLabel>
+
+				<DropdownMenuSeparator />
+				<form
+					action={async () => {
+						"use server";
+
+						await signOut();
+					}}
+				>
+					<Button variant="ghost" size="sm" className="w-full justify-start">
+						<LogOut className="h-4 w-4 mr-2" />
+						Logout
+					</Button>
+				</form>
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 };
