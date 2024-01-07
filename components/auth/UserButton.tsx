@@ -1,4 +1,5 @@
 import { LogOut } from "lucide-react";
+
 import { Button } from "../ui/button";
 import {
 	DropdownMenu,
@@ -10,10 +11,11 @@ import {
 import { UserAvatar } from "../UserAvatar";
 import { getSelf } from "@/lib/auth-service";
 import { signOut } from "@/next-auth";
+import { SettingsModal } from "./SettingsModal";
+import { currentUser } from "@/lib/auth";
 
 export const UserButton = async ({ props }: any) => {
 	const user = await getSelf();
-
 	if (!user) return null;
 
 	return (
@@ -24,6 +26,11 @@ export const UserButton = async ({ props }: any) => {
 
 			<DropdownMenuContent align="end" className="w-60">
 				<DropdownMenuLabel>{user.username}</DropdownMenuLabel>
+
+				<SettingsModal
+					initialImage={user.image!}
+					initialUsername={user.username}
+				/>
 
 				<DropdownMenuSeparator />
 				<form
