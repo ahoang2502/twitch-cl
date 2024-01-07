@@ -1,3 +1,5 @@
+import { auth } from "@/next-auth";
+
 export const useAuth = () => {
 	return null;
 };
@@ -7,5 +9,7 @@ export const useUser = () => {
 };
 
 export const currentUser = async () => {
-	return null;
+	const session = await auth();
+
+	return session?.user;
 };
